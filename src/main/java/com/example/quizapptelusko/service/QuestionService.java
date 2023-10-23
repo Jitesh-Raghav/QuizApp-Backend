@@ -16,9 +16,9 @@ public class QuestionService {
     QuestionRepo questionRepo;
 
     public ResponseEntity<List<Question>> getAllQuestions() {
-        try {
+        try{
             return new ResponseEntity<>(questionRepo.findAll(), HttpStatus.OK);
-        }catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
