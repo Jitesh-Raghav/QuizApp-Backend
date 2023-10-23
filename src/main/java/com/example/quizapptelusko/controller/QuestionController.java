@@ -3,10 +3,8 @@ package com.example.quizapptelusko.controller;
 import com.example.quizapptelusko.entity.Question;
 import com.example.quizapptelusko.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,12 +16,22 @@ public class QuestionController {
     QuestionService questionService;
 
     @GetMapping("/allQuestions")
-    public List<Question> getAllQuestions() {
+    public ResponseEntity<List<Question>> getAllQuestions() {
       return questionService.getAllQuestions();
     }
 
     @GetMapping("category/{category}")
     public List<Question> getQuestionByCategory(@PathVariable String category){
-      return questionService.getQuestionsByCategory(category);
+        return questionService.getQuestionsByCategory(category);
+    }
+
+    @PostMapping("add")
+    public String addQuestion(@RequestBody Question question){
+     //we want to add question to the db and we are passing that question from client side
+     //as body of the http request in json form, this @RequestBody converts that json data
+     //into java objects and is passed to above controller as method parameter.
+     //In short, it binds the HTTP request to a method parameter.
+
+        return questionService.addQuestion(question);
     }
 }
